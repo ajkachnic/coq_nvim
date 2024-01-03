@@ -10,7 +10,7 @@ TOP_LEVEL = Path(__file__).resolve(strict=True).parent.parent
 REQUIREMENTS = TOP_LEVEL / "requirements.txt"
 
 
-VARS = TOP_LEVEL / ".vars"
+VARS = Path.home() / ".cache/coq_nvim/vars"  # TOP_LEVEL / ".vars"
 
 RT_DIR = VARS / "runtime"
 RT_PY = RT_DIR / "Scripts" / "python.exe" if IS_WIN else RT_DIR / "bin" / "python3"

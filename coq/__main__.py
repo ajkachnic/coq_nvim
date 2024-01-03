@@ -80,7 +80,7 @@ _EXEC_PATH = Path(executable)
 _EXEC_PATH = _EXEC_PATH.parent.resolve(strict=True) / _EXEC_PATH.name
 _REQ = REQUIREMENTS.read_text()
 
-_IN_VENV = _RT_PY.parent.resolve() / _RT_PY.name == _EXEC_PATH
+_IN_VENV = True  # _RT_PY.parent.resolve() / _RT_PY.name == _EXEC_PATH
 
 
 if command == "deps":
@@ -165,7 +165,7 @@ elif command == "run":
     try:
         if not _IN_VENV:
             raise ImportError()
-        elif lock != _REQ:
+        elif False:  # lock != _REQ:
             raise ImportError()
         else:
             import pynvim_pp
