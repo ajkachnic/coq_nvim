@@ -33,11 +33,11 @@ local on_stderr = function(_, msg)
 end
 
 local py3 = (function()
-  if vim.g.python3_host_prog then
-    return vim.fn.fnamemodify(vim.g.python3_host_prog, ":p")
-  elseif is_win then
-    return vim.fn.exepath("python")
-  else
+  -- if vim.g.python3_host_prog then
+  --   return vim.fn.fnamemodify(vim.g.python3_host_prog, ":p")
+  -- elseif is_win then
+  --   return vim.fn.exepath("python")
+  -- else
     return vim.fn.exepath("python3")
   end
 end)()
