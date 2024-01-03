@@ -3,8 +3,10 @@ from asyncio import run as arun
 from contextlib import redirect_stderr, redirect_stdout, suppress
 from io import StringIO
 from os import linesep
+from os.path import sep
 from pathlib import Path, PurePath
 from subprocess import DEVNULL, STDOUT, CalledProcessError, run
+from shutil import which
 from sys import (
     executable,
     exit,
@@ -97,6 +99,17 @@ if command == "deps":
                 symlinks=not IS_WIN,
                 clear=True,
             ).create(_RT_DIR)
+
+        nix_store = PurePath(sep) / "nix" / "store"
+        try:
+            _RT_PY.resolve(strict=True).relative_to(nix_store)
+        except (OSError, ValueError):
+            pass
+        else:
+            if py := which(f"python{version_info.major}.{version_info.minor}"):
+                print(f"Relinking python under {nix_store}", file=stderr)
+                _RT_PY.unlink(missing_ok=True)
+                _RT_PY.symlink_to(py)
     except (ImportError, CalledProcessError, SystemExit):
         msg = "Please install python3-venv separately. (apt, yum, apk, etc)"
         print(msg, io_out.getvalue(), file=stderr)
