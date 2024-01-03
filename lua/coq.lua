@@ -32,14 +32,8 @@ local on_stderr = function(_, msg)
   vim.api.nvim_echo({{table.concat(msg, linesep), "ErrorMsg"}}, true, {})
 end
 
-local py3 = (function()
-  -- if vim.g.python3_host_prog then
-  --   return vim.fn.fnamemodify(vim.g.python3_host_prog, ":p")
-  -- elseif is_win then
-  --   return vim.fn.exepath("python")
-  -- else
-    return vim.fn.exepath("python3")
-  end
+local py3 = (function(
+  return vim.fn.exepath("python3")
 end)()
 local xdg_dir = vim.fn.stdpath("data")
 
